@@ -14,13 +14,9 @@ And you can also use this tool to execute C# script.
 
 Use this as C# script file executer.
 
+Below realized.
+
 ```shell
-# Default, execute Program.cs
-csharpell .
-
-# Execute Program.cs
-csharpell Program.cs
-
 # Interactive shell
 csharpell -i
 
@@ -28,4 +24,26 @@ csharpell -i
 csharpell
 ```
 
+Below not realized.
+
+```shell
+# Default, execute Program.cs
+csharpell .
+
+# Execute Program.cs
+csharpell Program.cs
+```
+
+# Build
+
+```shell
+# Get source codes
+git clone git@github.com:Dynesshely/Csharpell.git
+
+# Change working directory
+cd Csharpell
+
+# Build with dotnet sdk
+dotnet build
+```
 
