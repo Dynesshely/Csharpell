@@ -17,7 +17,41 @@ Parser.Default.ParseArguments<Options, Verbs.RunVerbOptions>(args)
         {
             Console.WriteLine($"Entering interactive mode.{verbose}");
 
-            // TODO: Shell environment.
+            var keepRunning = true;
+
+            while (keepRunning)
+            {
+                Console.Write(">>> ");
+
+                var line = Console.ReadLine() ?? "";
+
+                if (line.ToLower().Equals("exit"))
+                {
+                    keepRunning = false;
+                }
+                else
+                {
+                    try
+                    {
+                        var result = CSharpScriptEngine.Execute(line);
+
+                        // Check if result is end with new line.
+                        if (result?.ToString()?.EndsWith(Environment.NewLine) ?? true)
+                        {
+                            Console.Write(result);
+                        }
+                        else
+                        {
+                            Console.WriteLine(result);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e.StackTrace);
+                    }
+                }
+            }
         }
         else
         {
