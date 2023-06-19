@@ -26,12 +26,7 @@ jobs:
 
       - name: Add to GitHub Repo
         run: |
-          nuget sources add -name github -Source https://nuget.pkg.github.com/Dynesshely/index.json -Username Dynesshely -Password ${{ secrets.GitHubToken }}
-
-      - name: Install NuGet
-        uses: nuget/setup-nuget@v1
-        with:
-          nuget-version: '6.x'
+          dotnet nuget add source --username Dynesshely --password ${{ secrets.GITHUBTOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Dynesshely/index.json"
 
       - name: Restore dependencies
         run: dotnet restore
@@ -41,8 +36,8 @@ jobs:
         
       - name: Publish
         run: |
-          nuget push ./bin/Release/*.nupkg -Source https://api.nuget.org/v3/index.json -SkipDuplicate -ApiKey ${{ secrets.NugetKey }} -NoSymbol
-          nuget push ./bin/Release/*.nupkg -Source github -SkipDuplicate
+          dotnet nuget push "./bin/Release/*.nupkg" --api-key ${{ secrets.NUGETKEY }} --source "https://api.nuget.org/v3/index.json" --skip-duplicate --no-symbols
+          dotnet nuget push "./bin/Release/*.nupkg" --api-key ${{ secrets.GITHUBTOKEN }} --source "github" --skip-duplicate
       
 #       - name: Test
 #         run: dotnet test --no-build --verbosity normal
