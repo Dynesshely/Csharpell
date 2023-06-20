@@ -5,18 +5,17 @@ name: dotnet-build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-          
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
@@ -28,16 +27,33 @@ jobs:
         run: |
           dotnet nuget add source --username Dynesshely --password ${{ secrets.GITHUBTOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Dynesshely/index.json"
 
-      - name: Restore dependencies
+      - name: Restore Dependencies for Csharpell.Core
+        working-directory: Csharpell.Core
         run: dotnet restore
 
-      - name: Build
+      - name: Build Csharpell.Core
+        working-directory: Csharpell.Core
         run: dotnet build -c Release --no-restore
         
-      - name: Publish
+      - name: Restore Dependencies for Csharpell
+        working-directory: Csharpell
+        run: dotnet restore
+
+      - name: Build Csharpell
+        working-directory: Csharpell
+        run: dotnet build -c Release --no-restore
+
+      - name: Publish Csharpell.Core
+        working-directory: Csharpell.Core
         run: |
           dotnet nuget push "./bin/Release/*.nupkg" --api-key ${{ secrets.NUGETKEY }} --source "https://api.nuget.org/v3/index.json" --skip-duplicate --no-symbols
           dotnet nuget push "./bin/Release/*.nupkg" --api-key ${{ secrets.GITHUBTOKEN }} --source "github" --skip-duplicate
-      
+
+      - name: Publish Csharpell
+        working-directory: Csharpell
+        run: |
+          dotnet nuget push "./bin/Release/*.nupkg" --api-key ${{ secrets.NUGETKEY }} --source "https://api.nuget.org/v3/index.json" --skip-duplicate --no-symbols
+          dotnet nuget push "./bin/Release/*.nupkg" --api-key ${{ secrets.GITHUBTOKEN }} --source "github" --skip-duplicate
+
 #       - name: Test
 #         run: dotnet test --no-build --verbosity normal
