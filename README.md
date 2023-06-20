@@ -41,7 +41,7 @@ csharpell Program.cs
 git clone git@github.com:Dynesshely/Csharpell.git
 
 # Change working directory
-cd Csharpell
+cd Csharpell/Csharpell
 
 # Build with dotnet sdk
 dotnet build
