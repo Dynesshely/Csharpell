@@ -1,11 +1,13 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 
+namespace Csharpell.Core;
+
 public class CSharpScriptEngine
 {
-    private static ScriptState<object>? scriptState = null;
+    private ScriptState<object>? scriptState = null;
 
-    public static object? Execute(string? code)
+    public object? Execute(string? code)
     {
         if (code is null)
         {

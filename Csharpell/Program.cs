@@ -3,6 +3,7 @@
 // You can use top-level codes with this tool to write pythonike codes.
 
 using CommandLine;
+using Csharpell.Core;
 
 Parser.Default.ParseArguments<Options, Verbs.RunVerbOptions>(args)
     .WithParsed<Options>(options =>
@@ -18,6 +19,7 @@ Parser.Default.ParseArguments<Options, Verbs.RunVerbOptions>(args)
             Console.WriteLine($"Entering interactive mode.{verbose}");
 
             var keepRunning = true;
+            var engine = new CSharpScriptEngine();
 
             while (keepRunning)
             {
@@ -33,7 +35,7 @@ Parser.Default.ParseArguments<Options, Verbs.RunVerbOptions>(args)
                 {
                     try
                     {
-                        var result = CSharpScriptEngine.Execute(line);
+                        var result = engine.Execute(line);
 
                         // Check if result is end with new line.
                         if (result?.ToString()?.EndsWith(Environment.NewLine) ?? true)

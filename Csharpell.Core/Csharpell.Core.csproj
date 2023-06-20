@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -11,8 +10,6 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Dynesshely</Authors>
     <!-- <Company>Crequency</Company> -->
-    <PackAsTool>True</PackAsTool>
-    <ToolCommandName>csharpell</ToolCommandName>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/Dynesshely/Csharpell/</PackageProjectUrl>
@@ -36,11 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.9.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Csharpell.Core\Csharpell.Core.csproj" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.6.0" />
   </ItemGroup>
 
 </Project>
