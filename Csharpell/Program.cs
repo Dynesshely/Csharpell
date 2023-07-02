@@ -59,7 +59,26 @@ Parser.Default.ParseArguments<Options, Verbs.RunVerbOptions>(args)
         {
             Console.WriteLine($"Executing file{verbose}: \"{options?.Path}\"");
 
-            // TODO: Execute file.
+            if (File.Exists(options?.Path))
+            {
+                try
+                {
+                    var content = File.ReadAllText(options?.Path ?? "");
+                    var engine = new CSharpScriptEngine();
+                    var result = engine.Execute(content);
+
+                    Console.WriteLine(result);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"File not found: \"{options?.Path}\"");
+            }
         }
     })
     .WithNotParsed(errs => Console.WriteLine("Failed to parse arguments."))
