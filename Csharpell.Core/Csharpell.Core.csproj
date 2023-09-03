@@ -5,13 +5,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  
   <PropertyGroup>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Authors>Dynesshely</Authors>
     <!-- <Company>Crequency</Company> -->
+    <Description>Core logic for Csharpell (Csharp script engine).</Description>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/Dynesshely/Csharpell/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Dynesshely/Csharpell/</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
