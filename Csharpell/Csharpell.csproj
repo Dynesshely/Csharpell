@@ -8,21 +8,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackAsTool>True</PackAsTool>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <Authors>Dynesshely</Authors>
-    <!-- <Company>Crequency</Company> -->
     <Description>A shell (REPL) for C# file and execute them as script.</Description>
-    <ToolCommandName>csharpell</ToolCommandName>
-    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Dynesshely/Csharpell/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Dynesshely/Csharpell/</RepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>csharp;executor;code-analysis;roslyn;script;repl</PackageTags>
+    <Copyright>Copyright © Crequency 2023-present</Copyright>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -31,6 +19,22 @@
     <Version>
       0.2.$([System.DateTime]::UtcNow.Date.Subtract($([System.DateTime]::Parse("2023-07-20"))).TotalDays).$([System.Math]::Floor($([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes)))
     </Version>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>csharp;executor;code-analysis;roslyn;script;repl</PackageTags>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Dynesshely/Csharpell/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Dynesshely/Csharpell/</RepositoryUrl>
+
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackAsTool>True</PackAsTool>
+    <ToolCommandName>csharpell</ToolCommandName>
   </PropertyGroup>
 
   <ItemGroup>
