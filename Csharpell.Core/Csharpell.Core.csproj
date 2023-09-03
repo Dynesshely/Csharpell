@@ -15,21 +15,19 @@
     <PackageProjectUrl>https://github.com/Dynesshely/Csharpell/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Dynesshely/Csharpell/</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>csharp;executor;code-analysis;roslyn;script</PackageTags>
+    <PackageTags>csharp;executor;code-analysis;roslyn;script;repl</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>
     <Version>
-      0.2.0.$([System.Math]::Floor($([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes)))</Version>
+      0.2.$([System.DateTime]::UtcNow.Date.Subtract($([System.DateTime]::Parse("2023-07-20"))).TotalDays).$([System.Math]::Floor($([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes)))
+    </Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <None Include="..\README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
