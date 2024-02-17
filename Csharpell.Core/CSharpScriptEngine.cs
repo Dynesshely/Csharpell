@@ -5,19 +5,34 @@ namespace Csharpell.Core;
 
 public class CSharpScriptEngine
 {
-    private ScriptState<object>? scriptState = null;
+    private ScriptState<object>? _scriptState = null;
 
-    public object? Execute(string? code)
+    private ScriptOptions _options = ScriptOptions.Default;
+
+    public async Task<object?> ExecuteAsync(string? code, Func<ScriptOptions, ScriptOptions>? options = null)
     {
         if (code is null)
+            return null;
+
+        _options = _options.WithImports("System", "System.Text", "System.Collections.Generic");
+
+        var new_options = options?.Invoke(_options);
+
+        if (new_options is not null) _options = new_options;
+
+        if (_scriptState is null)
         {
-            throw new ArgumentNullException(nameof(code), "`code` string is null.");
+            _scriptState = (ScriptState<object>)await CSharpScript.RunAsync(code, _options);
+        }
+        else
+        {
+            _scriptState = (ScriptState<object>)await _scriptState.ContinueWithAsync(code, _options);
         }
 
-        scriptState = scriptState is null ? CSharpScript.RunAsync(code).Result : scriptState.ContinueWithAsync(code).Result;
+        var result = _scriptState.ReturnValue;
 
-        if (scriptState.ReturnValue is not null && !string.IsNullOrEmpty(scriptState.ReturnValue.ToString()))
-            return scriptState.ReturnValue;
+        if (result is not null && !string.IsNullOrEmpty(result.ToString()))
+            return result;
 
         return null;
     }

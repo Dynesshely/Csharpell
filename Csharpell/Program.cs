@@ -10,7 +10,7 @@ Parser.Default.ParseArguments<Options, Verbs.RunVerbOptions>(args)
     {
 
     })
-    .WithParsed<Verbs.RunVerbOptions>(options =>
+    .WithParsed<Verbs.RunVerbOptions>(async options =>
     {
         var verbose = options.Verbose ? " (Verbose)" : "";
 
@@ -35,7 +35,7 @@ Parser.Default.ParseArguments<Options, Verbs.RunVerbOptions>(args)
                 {
                     try
                     {
-                        var result = engine.Execute(line);
+                        var result = await engine.ExecuteAsync(line);
 
                         // Check if result is end with new line.
                         if (result?.ToString()?.EndsWith(Environment.NewLine) ?? true)
@@ -65,7 +65,7 @@ Parser.Default.ParseArguments<Options, Verbs.RunVerbOptions>(args)
                 {
                     var content = File.ReadAllText(options?.Path ?? "");
                     var engine = new CSharpScriptEngine();
-                    var result = engine.Execute(content);
+                    var result = engine.ExecuteAsync(content);
 
                     Console.WriteLine(result);
                 }
