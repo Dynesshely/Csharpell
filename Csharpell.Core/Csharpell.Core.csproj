@@ -1,41 +1,41 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <Authors>Dynesshely</Authors>
-    <!-- <Company>Crequency</Company> -->
-    <Description>Core logic for Csharpell (Csharp script engine).</Description>
-    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Dynesshely/Csharpell/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Dynesshely/Csharpell/</RepositoryUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>csharp;executor;code-analysis;roslyn;script;repl</PackageTags>
-  </PropertyGroup>
+    <PropertyGroup>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <AssemblyVersion>$(Version)</AssemblyVersion>
-    <FileVersion>$(Version)</FileVersion>
-    <Version>
-      0.3.$([System.DateTime]::UtcNow.Date.Subtract($([System.DateTime]::Parse("2023-07-20"))).TotalDays).$([System.Math]::Floor($([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes)))
-    </Version>
-  </PropertyGroup>
+    <PropertyGroup>
+        <Authors>Dynesshely</Authors>
+        <!-- <Company>Crequency</Company> -->
+        <Description>Core logic for Csharpell (Csharp script engine).</Description>
+        <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/Dynesshely/Csharpell/</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Dynesshely/Csharpell/</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>csharp;executor;code-analysis;roslyn;script;repl</PackageTags>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\README.md" Pack="True" PackagePath="\" />
-  </ItemGroup>
+    <PropertyGroup>
+        <AssemblyVersion>$(Version)</AssemblyVersion>
+        <FileVersion>$(Version)</FileVersion>
+        <Version>
+            0.4.$([System.DateTime]::UtcNow.Date.Subtract($([System.DateTime]::Parse("2023-07-20"))).TotalDays).$([System.Math]::Floor($([System.DateTime]::UtcNow.TimeOfDay.TotalMinutes)))
+        </Version>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.6.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="..\README.md" Pack="True" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.6.0" />
+    </ItemGroup>
 
 </Project>
