@@ -1,14 +1,17 @@
-using CommandLine;
+﻿using CommandLine;
 
-public class Verbs
+namespace Csharpell;
+
+[Verb("console", isDefault: true, HelpText = "Enter C# REPL console.")]
+public class ConsoleVerbOptions : Options
 {
-    [Verb("run", isDefault: true, HelpText = "Run C# file as script.")]
-    public class RunVerbOptions: Options
-    {
-        [Option('p', "path", Default = "./Program.cs", Required = false, HelpText = "Path to C# file to run.")]
-        public string? Path { get; set; }
+    [Option('e', "execute", Default = null, Required = false, HelpText = "Execute command from arguments.")]
+    public string? Command { get; set; }
+}
 
-        [Option('i', "interactive", Default = false, Required = false, HelpText = "Run with interactive mode.")]
-        public bool Interactive { get; set; }
-    }
+[Verb("run", HelpText = "Run C# file as script.")]
+public class RunVerbOptions : Options
+{
+    [Option('p', "path", Default = "./Program.cs", Required = false, HelpText = "Path to C# file to run.")]
+    public string? Path { get; set; }
 }
