@@ -9,7 +9,11 @@ public class CSharpScriptEngine
 
     private ScriptOptions _options = ScriptOptions.Default;
 
-    public async Task<object?> ExecuteAsync(string? code, Func<ScriptOptions, ScriptOptions>? options = null)
+    public async Task<object?> ExecuteAsync(
+        string? code,
+        Func<ScriptOptions, ScriptOptions>? options = null,
+        CancellationToken cancellationToken = default
+    )
     {
         if (code is null)
             return null;
@@ -22,11 +26,19 @@ public class CSharpScriptEngine
 
         if (_scriptState is null)
         {
-            _scriptState = (ScriptState<object>)await CSharpScript.RunAsync(code, _options);
+            _scriptState = (ScriptState<object>)await CSharpScript.RunAsync(
+                code,
+                _options,
+                cancellationToken: cancellationToken
+            );
         }
         else
         {
-            _scriptState = (ScriptState<object>)await _scriptState.ContinueWithAsync(code, _options);
+            _scriptState = (ScriptState<object>)await _scriptState.ContinueWithAsync(
+                code,
+                _options,
+                cancellationToken: cancellationToken
+            );
         }
 
         var result = _scriptState.ReturnValue;
