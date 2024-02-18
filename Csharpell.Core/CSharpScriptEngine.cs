@@ -5,40 +5,61 @@ namespace Csharpell.Core;
 
 public class CSharpScriptEngine
 {
-    private ScriptState<object>? _scriptState = null;
+    private Script<object>? _script;
+
+    private ScriptState<object>? _scriptState;
 
     private ScriptOptions _options = ScriptOptions.Default;
 
     public async Task<object?> ExecuteAsync(
         string? code,
         Func<ScriptOptions, ScriptOptions>? options = null,
+        bool addDefaultImports = true,
+        bool runInReplMode = true,
         CancellationToken cancellationToken = default
     )
     {
         if (code is null)
             return null;
 
-        _options = _options.WithImports("System", "System.Text", "System.Collections.Generic");
+        if (addDefaultImports)
+            _options = _options.WithImports([
+                "System",
+                "System.Collections.Generic",
+                "System.IO",
+                "System.Linq",
+                "System.Net.Http",
+                "System.Text",
+                "System.Threading",
+                "System.Threading.Tasks"
+            ]);
 
         var new_options = options?.Invoke(_options);
 
         if (new_options is not null) _options = new_options;
 
-        if (_scriptState is null)
+        if (_script is null)
         {
-            _scriptState = (ScriptState<object>)await CSharpScript.RunAsync(
-                code,
-                _options,
-                cancellationToken: cancellationToken
-            );
+            _script = CSharpScript.Create(code, _options);
+
+            _ = _script.Compile(cancellationToken);
+
+            _scriptState = await _script.RunAsync(cancellationToken: cancellationToken);
         }
         else
         {
-            _scriptState = (ScriptState<object>)await _scriptState.ContinueWithAsync(
-                code,
-                _options,
-                cancellationToken: cancellationToken
-            );
+            if (runInReplMode)
+            {
+                _scriptState = await _scriptState!.ContinueWithAsync(code, _options, cancellationToken);
+            }
+            else
+            {
+                _script = CSharpScript.Create(code, _options);
+
+                _ = _script.Compile(cancellationToken);
+
+                _scriptState = await _script.RunAsync(cancellationToken: cancellationToken);
+            }
         }
 
         var result = _scriptState.ReturnValue;
