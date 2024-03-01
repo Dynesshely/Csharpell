@@ -1,12 +1,12 @@
 ﻿// This project is a shell to execute csharp code immediately like python.
 // You can use top-level codes with this tool to write pythonike codes.
 
+using System.Reflection;
 using CommandLine;
 using Csharpell;
 using Csharpell.Core;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
-using System.Reflection;
 
 Parser.Default.ParseArguments<Options, ConsoleVerbOptions, RunVerbOptions>(args)
     .WithParsed<Options>(options =>
