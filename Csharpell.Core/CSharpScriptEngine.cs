@@ -22,8 +22,12 @@ public class CSharpScriptEngine
         if (code is null)
             return null;
 
+        var newOptions = options?.Invoke(_options);
+
+        if (newOptions is not null) _options = newOptions;
+
         if (addDefaultImports)
-            _options = _options.WithImports([
+            _options = _options.AddImports([
                 "System",
                 "System.Collections.Generic",
                 "System.IO",
@@ -33,10 +37,6 @@ public class CSharpScriptEngine
                 "System.Threading",
                 "System.Threading.Tasks"
             ]);
-
-        var new_options = options?.Invoke(_options);
-
-        if (new_options is not null) _options = new_options;
 
         if (_script is null)
         {
